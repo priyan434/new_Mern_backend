@@ -55,9 +55,9 @@ module.exports.updateproduct = async (req, res) => {
     }
 
     const result = await cloudinary.uploader.upload(imageSrc);
-    console.log(result);
+    // console.log(result);
     const product = await Product.findOne({ id: req.body.id });
-
+  console.log(result.url);
     if (product) {
       const doc = await Product.findByIdAndUpdate(
         product._id,
@@ -88,7 +88,7 @@ module.exports.updateproduct = async (req, res) => {
 
 
 module.exports.addproduct = async (req, res) => {
-  console.log(process.env.CLOUDINARY_API_SECRET);
+
   const { name, id, description, price, imageSrc, stock, rating, category } =
     req.body;
 
@@ -99,7 +99,7 @@ module.exports.addproduct = async (req, res) => {
     }
 
     const result = await cloudinary.uploader.upload(imageSrc);
-    console.log(result);
+    // console.log(result);
 
     if (result) {
       const product = new Product({
@@ -114,7 +114,7 @@ module.exports.addproduct = async (req, res) => {
       });
 
       const savedProduct = await product.save();
-      res.status(200).json(savedProduct);
+      res.status(200).json("ok");
     }
   } catch (error) {
     console.error("Error in addproduct:", error);
